@@ -5,11 +5,11 @@
 'use strict';
 
 import {EventEmitter} from 'events';
-import User from './user.model';
-var UserEvents = new EventEmitter();
+import Shelter from './shelter.model';
+var ShelterEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
-UserEvents.setMaxListeners(0);
+ShelterEvents.setMaxListeners(0);
 
 // Model events
 var events = {
@@ -20,14 +20,14 @@ var events = {
 // Register the event emitter to the model events
 for (var e in events) {
   var event = events[e];
-  User.schema.post(e, emitEvent(event));
+  Shelter.schema.post(e, emitEvent(event));
 }
 
 function emitEvent(event) {
   return function(doc) {
-    UserEvents.emit(event + ':' + doc._id, doc);
-    UserEvents.emit(event, doc);
+    ShelterEvents.emit(event + ':' + doc._id, doc);
+    ShelterEvents.emit(event, doc);
   }
 }
 
-export default UserEvents;
+export default ShelterEvents;

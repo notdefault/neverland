@@ -1,31 +1,31 @@
 'use strict';
 
 import app from '../..';
-import User from './user.model';
+import Shelter from './shelter.model';
 import request from 'supertest';
 
-describe('User API:', function() {
-  var user;
+describe('Shelter API:', function() {
+  var shelter;
 
-  // Clear users before testing
+  // Clear shelters before testing
   before(function() {
-    return User.remove().then(function() {
-      user = new User({
-        name: 'Fake User',
-        email: 'test@example.com',
+    return Shelter.remove().then(function() {
+      shelter = new Shelter({
+        name: 'Generic Animal Shelter',
+        email: 'foo@shelter.com',
         password: 'password'
       });
 
-      return user.save();
+      return shelter.save();
     });
   });
 
-  // Clear users after testing
+  // Clear shelters after testing
   after(function() {
-    return User.remove();
+    return Shelter.remove();
   });
 
-  describe('GET /api/users/me', function() {
+  describe('GET /api/shelters/me', function() {
     var token;
 
     before(function(done) {
@@ -43,21 +43,21 @@ describe('User API:', function() {
         });
     });
 
-    it('should respond with a user profile when authenticated', function(done) {
+    it('should respond with a shelter profile when authenticated', function(done) {
       request(app)
-        .get('/api/users/me')
+        .get('/api/shelters/me')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          expect(res.body._id.toString()).to.equal(user._id.toString());
+          expect(res.body._id.toString()).to.equal(shelter._id.toString());
           done();
         });
     });
 
     it('should respond with a 401 when not authenticated', function(done) {
       request(app)
-        .get('/api/users/me')
+        .get('/api/shelters/me')
         .expect(401)
         .end(done);
     });

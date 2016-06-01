@@ -1,6 +1,6 @@
 'use strict';
 
-import User from './user.model';
+import Shelter from './shelter.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
@@ -20,27 +20,27 @@ function handleError(res, statusCode) {
 }
 
 /**
- * Get list of users
+ * Get list of shelters
  * restriction: 'admin'
  */
 export function index(req, res) {
-  return User.find({}, '-salt -password').exec()
-    .then(users => {
-      res.status(200).json(users);
+  return Shelter.find({}, '-salt -password').exec()
+    .then(shelters => {
+      res.status(200).json(shelters);
     })
     .catch(handleError(res));
 }
 
 /**
- * Creates a new user
+ * Creates a new shelter
  */
 export function create(req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save()
-    .then(function(user) {
-      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+  var newShelter = new Shelter(req.body);
+  newShelter.provider = 'local';
+  newShelter.role = 'shelter';
+  newShelter.save()
+    .then(function(shelter) {
+      var token = jwt.sign({ _id: shelter._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
       res.json({ token });
@@ -49,27 +49,27 @@ export function create(req, res, next) {
 }
 
 /**
- * Get a single user
+ * Get a single shelter
  */
 export function show(req, res, next) {
-  var userId = req.params.id;
+  var shelterId = req.params.id;
 
-  return User.findById(userId).exec()
-    .then(user => {
-      if (!user) {
+  return Shelter.findById(shelterId).exec()
+    .then(shelter => {
+      if (!shelter) {
         return res.status(404).end();
       }
-      res.json(user.profile);
+      res.json(shelter.profile);
     })
     .catch(err => next(err));
 }
 
 /**
- * Deletes a user
+ * Deletes a shelter
  * restriction: 'admin'
  */
 export function destroy(req, res) {
-  return User.findByIdAndRemove(req.params.id).exec()
+  return Shelter.findByIdAndRemove(req.params.id).exec()
     .then(function() {
       res.status(204).end();
     })
@@ -77,18 +77,18 @@ export function destroy(req, res) {
 }
 
 /**
- * Change a users password
+ * Change a shelters password
  */
 export function changePassword(req, res, next) {
-  var userId = req.user._id;
+  var shelterId = req.shelter._id;
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
-  return User.findById(userId).exec()
-    .then(user => {
-      if (user.authenticate(oldPass)) {
-        user.password = newPass;
-        return user.save()
+  return Shelter.findById(shelterId).exec()
+    .then(shelter => {
+      if (shelter.authenticate(oldPass)) {
+        shelter.password = newPass;
+        return shelter.save()
           .then(() => {
             res.status(204).end();
           })
@@ -103,14 +103,14 @@ export function changePassword(req, res, next) {
  * Get my info
  */
 export function me(req, res, next) {
-  var userId = req.user._id;
+  var shelterId = req.shelter._id;
 
-  return User.findOne({ _id: userId }, '-salt -password').exec()
-    .then(user => { // don't ever give out the password or salt
-      if (!user) {
+  return Shelter.findOne({ _id: shelterId }, '-salt -password').exec()
+    .then(shelter => { // don't ever give out the password or salt
+      if (!shelter) {
         return res.status(401).end();
       }
-      res.json(user);
+      res.json(shelter);
     })
     .catch(err => next(err));
 }

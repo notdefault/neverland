@@ -7,7 +7,7 @@ import {Schema} from 'mongoose';
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
-var UserSchema = new Schema({
+var ShelterSchema = new Schema({
   name: String,
   email: {
     type: String,
@@ -22,7 +22,7 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'user'
+    default: 'shelter'
   },
   password: {
     type: String,
@@ -38,8 +38,7 @@ var UserSchema = new Schema({
   salt: String,
   facebook: {},
   twitter: {},
-  google: {},
-  github: {}
+  google: {}
 });
 
 /**
@@ -47,7 +46,7 @@ var UserSchema = new Schema({
  */
 
 // Public profile information
-UserSchema
+ShelterSchema
   .virtual('profile')
   .get(function() {
     return {
@@ -57,7 +56,7 @@ UserSchema
   });
 
 // Non-sensitive info we'll be putting in the token
-UserSchema
+ShelterSchema
   .virtual('token')
   .get(function() {
     return {
@@ -71,7 +70,7 @@ UserSchema
  */
 
 // Validate empty email
-UserSchema
+ShelterSchema
   .path('email')
   .validate(function(email) {
     if (authTypes.indexOf(this.provider) !== -1) {
@@ -81,7 +80,7 @@ UserSchema
   }, 'Email cannot be blank');
 
 // Validate empty password
-UserSchema
+ShelterSchema
   .path('password')
   .validate(function(password) {
     if (authTypes.indexOf(this.provider) !== -1) {
@@ -91,7 +90,7 @@ UserSchema
   }, 'Password cannot be blank');
 
 // Validate email is not taken
-UserSchema
+ShelterSchema
   .path('email')
   .validate(function(value, respond) {
     var self = this;
@@ -120,7 +119,7 @@ var validatePresenceOf = function(value) {
 /**
  * Pre-save hook
  */
-UserSchema
+ShelterSchema
   .pre('save', function(next) {
     // Handle new/update passwords
     if (!this.isModified('password')) {
@@ -154,7 +153,7 @@ UserSchema
 /**
  * Methods
  */
-UserSchema.methods = {
+ShelterSchema.methods = {
   /**
    * Authenticate - check if the passwords are the same
    *
@@ -252,4 +251,4 @@ UserSchema.methods = {
   }
 };
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('Shelter', ShelterSchema);
