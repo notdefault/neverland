@@ -1,24 +1,24 @@
-# Neverland #
+# Neverland
 _Neverland is home to lost boys like me;_
 _Lost boys like me are free._
 
-## About ##
+## About
 This project aims to supply an HTML5/JS responsive application that sources data from community driven (government based) animal adoption websites. I saw a severe lacking need in the UI for pet adoptions, and feel a potential for increase in adoption rate if mobile web is used and UX is enhanced. 
 
-## Current Features ##
+## Current Features
   * Initial scaffolding and documentation!
   * Oh right, features? None of those yet...
 
 
-## Project Scope / Goals ##
-  * Scrape OCAS Web <http://apps.ocfl.net/dept/CEsrvcs/animal/NetPets/Overall.asp?NN=1&AT=D>
+## Project Scope / Goals
+  * Scrape OCAS Web [OCAS](http://apps.ocfl.net/dept/CEsrvcs/animal/NetPets/Overall.asp?NN=1&AT=D)
   * Build UI (See dox/Wireframes)
   * Add Secondary Source as Model
   * Bug Fix
   * RC / Bug Documentation
   * P Release
 
-## Requirements ##
+## Requirements
 _-----EDIT THIS-----_
   * Node.js <http://nodejs.org/>
   * Redis <http://redis.io/>
@@ -33,10 +33,10 @@ _-----EDIT THIS-----_
   * Bower <http://twitter.github.com/bower/>
   * Gulp <http://gulpjs.com/>
 
-## Development Environment Setup ##
+## Development Environment Setup
 _NEEDS Edits_
 
-## Development Work-flow ##
+## Development Work-flow
 
   1. Launch development server
 
