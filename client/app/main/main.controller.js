@@ -6,27 +6,27 @@
 
     constructor($http) {
       this.$http = $http;
-      this.awesomeThings = [];
+      this.shelters = [];
     }
 
     $onInit() {
-      this.$http.get('/api/things')
+      this.$http.get('/api/shelters')
         .then(response => {
-          this.awesomeThings = response.data;
+          this.shelters = response.data;
         });
     }
 
     addThing() {
-      if (this.newThing) {
-        this.$http.post('/api/things', {
-          name: this.newThing
+      if (this.newShelter) {
+        this.$http.post('/api/shelters', {
+          name: this.newShelter
         });
-        this.newThing = '';
+        this.newShelter = '';
       }
     }
 
     deleteThing(thing) {
-      this.$http.delete('/api/things/' + thing._id);
+      this.$http.delete('/api/shelters/' + thing._id);
     }
   }
 
