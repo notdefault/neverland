@@ -11,7 +11,7 @@ This project aims to supply an HTML5/JS responsive application that sources data
 
 
 ## Project Scope / Goals ##
-  * Scrape OCAS Web <http://apps.ocfl.net/dept/CEsrvcs/animal/NetPets/Overall.asp?NN=1&AT=D>
+  * Scrape [OCAS Web](http://apps.ocfl.net/dept/CEsrvcs/animal/NetPets/Overall.asp?NN=1&AT=D)
   * Build UI (See dox/Wireframes)
   * Add Secondary Source as Model
   * Bug Fix
@@ -52,17 +52,17 @@ _NEEDS Edits_
 
   1. Launch development server
 
-	  ``bash
-	  npm start
-	  ``
+```bash
+npm start
+```
 
   2. Make changes (reflected live in browser)
 
   3. Run unit tests
 
-	  ``bash
-	  gulp test
-	  ``
+```bash
+gulp test
+```
 
   4. Commit changes
 
@@ -70,14 +70,14 @@ _NEEDS Edits_
 
   1. Run build scripts
 
-	  ``bash
-	  gulp build
-		``
+```bash
+gulp build
+```
   2. Serve compiled, production-ready files from the 'dist' directory
 
-	  ``bash
-	  gulp serve:dist
-		``
+```bash
+gulp serve:dist
+```
 
 ## General Notes ##
 
